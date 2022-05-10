@@ -275,11 +275,11 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
         csvwriter.writerow(d)
         cf.flush()
 
-folder = 'vectors/normalized_clean_coha_10_years/'
+folder = 'vectors/normalized_clean_coha_5_years/'
 
 filenames_nyt = [folder + 'vectorsnyt{}-{}.txt'.format(x, x+3) for x in range(1987, 2005, 1)]
 
-filenames_sgns = [folder + 'vectors_sgns{}.txt'.format(x) for x in range(1970, 2009+1, 10)]
+filenames_sgns = [folder + 'vectors_sgns{}.txt'.format(x) for x in range(1970, 2009+1, 5)]
 
 filenames_svd = [folder + 'vectors_svd{}.txt'.format(x) for x in range(1910, 2000, 10)]
 filenames_google = [folder + 'vectorsGoogleNews_exactclean.txt']

@@ -32,6 +32,6 @@ def save_files(yrs, oldloc, newloc, label):
                         csvwritervoc.writerow([words[en]])
                     except:
                         print(words[en], end=' ')
-loc = '../vectors/coha_10_years/'
-yrs = list(range(1970, 2009+1, 10))
-save_files(yrs, loc, '../vectors/coha_10_years_processed/', 'sgns')
+loc = '../vectors/coha_5_years/'
+yrs = list(range(1970, 2009+1, 5))
+save_files(yrs, loc, '../vectors/coha_5_years_processed/', 'sgns')

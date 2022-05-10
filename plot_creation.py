@@ -85,17 +85,21 @@ def plot_averagebias_over_time_consistentoccupations(row, label='', neutral_word
     occ_differences_dist = []
     done_occups = []
 
+    print("OCCUPS", len(row['indiv_distances_neutral_{}'.format(neutral_words)]))
+
     if overlay_with_occ_percents:
             occpercents, occ_weights = load_occupationpercent_data(occ_percents_file, occ_func, yrs_to_do=yrs)
     for occup in row['indiv_distances_neutral_{}'.format(neutral_words)]:
+        # print("OCCUP", occup[0], any(np.isnan(occpercents[occup])))
         if limit_to_certain_words and occup not in limit_words: continue
         if overlay_with_occ_percents and occup not in occpercents: continue
-        if overlay_with_occ_percents and any(np.isnan(occpercents[occup])):continue
+        # if overlay_with_occ_percents and any(np.isnan(occpercents[occup])):continue
         difs = differences(row['indiv_distances_neutral_{}'.format(neutral_words)][occup][
                                     group1 + ''][4], row['indiv_distances_neutral_{}'.format(neutral_words)][occup][group2 + ''][4])[shift:]
 
         print("VEC1", row['indiv_distances_neutral_{}'.format(neutral_words)][occup][
                                     group1 + ''][4])
+        # STOP
         print("VEC2", row['indiv_distances_neutral_{}'.format(neutral_words)][occup][group2 + ''][4])
 
         if any(np.isnan(difs)):continue
