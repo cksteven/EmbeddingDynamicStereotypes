@@ -164,7 +164,7 @@ def differences(vec1, vec2):
 
 nytyears = list(range(1987, 2005, 1))
 
-sgnyears = list(range(1970, 2009+1, 5))
+sgnyears = list(range(1970, 2009+1, 2))
 
 svdyears = list(range(1910, 2000, 10))
 cohayears = list(range(1880, 2000, 10))

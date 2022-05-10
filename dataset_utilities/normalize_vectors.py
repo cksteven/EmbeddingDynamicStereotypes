@@ -57,13 +57,13 @@ def normalize(filename, filename_output):
   print(countnorm0, countnormal)
 
 def normalize_vectors():
-  folder = '../vectors/coha_5_years_processed/'
+  folder = '../vectors/coha_2_years_processed/'
   # filenames_ldc95 = [folder + 'vectorsldc95_{}.txt'.format(x) for x in ['NYT', 'LATWP', 'REUFF', 'REUTE', 'WSJ']]
 
-  filenames_coha = [(folder + 'vectors_sgns{}.txt'.format(x)) for x in range(1970, 2009+1, 5)]
+  filenames_coha = [(folder + 'vectors_sgns{}.txt'.format(x)) for x in range(1970, 2009+1, 2)]
 
   for name in filenames_coha:
-    filename_output = name.replace('coha_5_years_processed/','normalized_clean_coha_5_years/')
+    filename_output = name.replace('coha_2_years_processed/','normalized_clean_coha_2_years/')
     print(name,filename_output)
     normalize(name, filename_output)
 
@@ -71,19 +71,43 @@ if __name__ == "__main__":
   normalize_vectors()
 
 # (py39) kesong@Kesongs-MacBook-Pro dataset_utilities % python normalize_vectors.py
-# ../vectors/coha_5_years_processed/vectors_sgns1970.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1970.txt
-# 0 47444
-# ../vectors/coha_5_years_processed/vectors_sgns1975.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1975.txt
-# 0 46246
-# ../vectors/coha_5_years_processed/vectors_sgns1980.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1980.txt
-# 0 45702
-# ../vectors/coha_5_years_processed/vectors_sgns1985.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1985.txt
-# 0 45379
-# ../vectors/coha_5_years_processed/vectors_sgns1990.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1990.txt
-# 0 46165
-# ../vectors/coha_5_years_processed/vectors_sgns1995.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns1995.txt
-# 0 46547
-# ../vectors/coha_5_years_processed/vectors_sgns2000.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns2000.txt
-# 0 46818
-# ../vectors/coha_5_years_processed/vectors_sgns2005.txt ../vectors/normalized_clean_coha_5_years/vectors_sgns2005.txt
-# 0 47350
+# ../vectors/coha_2_years_processed/vectors_sgns1970.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1970.txt
+# 0 42124
+# ../vectors/coha_2_years_processed/vectors_sgns1972.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1972.txt
+# 0 39723
+# ../vectors/coha_2_years_processed/vectors_sgns1974.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1974.txt
+# 0 47603
+# ../vectors/coha_2_years_processed/vectors_sgns1976.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1976.txt
+# 0 40438
+# ../vectors/coha_2_years_processed/vectors_sgns1978.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1978.txt
+# 0 47658
+# ../vectors/coha_2_years_processed/vectors_sgns1980.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1980.txt
+# 0 43219
+# ../vectors/coha_2_years_processed/vectors_sgns1982.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1982.txt
+# 0 41220
+# ../vectors/coha_2_years_processed/vectors_sgns1984.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1984.txt
+# 0 41995
+# ../vectors/coha_2_years_processed/vectors_sgns1986.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1986.txt
+# 0 42093
+# ../vectors/coha_2_years_processed/vectors_sgns1988.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1988.txt
+# 0 41743
+# ../vectors/coha_2_years_processed/vectors_sgns1990.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1990.txt
+# 0 43430
+# ../vectors/coha_2_years_processed/vectors_sgns1992.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1992.txt
+# 0 42604
+# ../vectors/coha_2_years_processed/vectors_sgns1994.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1994.txt
+# 0 44719
+# ../vectors/coha_2_years_processed/vectors_sgns1996.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1996.txt
+# 0 44759
+# ../vectors/coha_2_years_processed/vectors_sgns1998.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns1998.txt
+# 0 41954
+# ../vectors/coha_2_years_processed/vectors_sgns2000.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns2000.txt
+# 0 43501
+# ../vectors/coha_2_years_processed/vectors_sgns2002.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns2002.txt
+# 0 48459
+# ../vectors/coha_2_years_processed/vectors_sgns2004.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns2004.txt
+# 0 44352
+# ../vectors/coha_2_years_processed/vectors_sgns2006.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns2006.txt
+# 0 43102
+# ../vectors/coha_2_years_processed/vectors_sgns2008.txt ../vectors/normalized_clean_coha_2_years/vectors_sgns2008.txt
+# 0 40285
