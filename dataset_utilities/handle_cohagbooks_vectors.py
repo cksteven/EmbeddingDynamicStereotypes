@@ -4,18 +4,22 @@ from sklearn.decomposition import PCA
 import sys
 from io import StringIO
 import pickle
+import gensim
 
 def load_yr(yr, loc):
-    vectors = np.load('{}{}-w.npy'.format(loc,yr))
-    words = pickle.load(open('{}{}-vocab.pkl'.format(loc, yr), "rb"))
-    counts = pickle.load(open('{}{}{}-counts.pkl'.format(loc, '../counts/', yr), "rb"), encoding='latin1')
-    return vectors, words, counts
+    model = gensim.models.Word2Vec.load(
+      "{}{}.gensim.model".format(loc, yr))
+
+    words = list(model.wv.index_to_key)
+    vectors = np.array([model.wv[word] for word in words])
+    # counts = pickle.load(open('{}{}{}-counts.pkl'.format(loc, '../counts/', yr), "rb"), encoding='latin1')
+    return vectors, words
 
 def save_files(yrs, oldloc, newloc, label):
     for yr in yrs:
         print('\n')
         print(yr)
-        vectors, words, counts = load_yr(yr, oldloc)
+        vectors, words = load_yr(yr, oldloc)
         with open('{}vectors_{}{}.txt'.format(newloc, label, yr), 'w') as f:
             with open('{}/vocab/vocab_{}{}.txt'.format(newloc, label, yr), 'w') as f2:
                 csvwriter = csv.writer(f, delimiter = ' ')
@@ -25,9 +29,9 @@ def save_files(yrs, oldloc, newloc, label):
                         row = [words[en]]
                         row.extend(vectors[en])
                         csvwriter.writerow(row)
-                        csvwritervoc.writerow([words[en], counts[words[en]]])
+                        csvwritervoc.writerow([words[en]])
                     except:
-                        print(words[en], counts[words[en]], end=' ')
-loc = '../vectors/coha/sgns/'
-yrs = list(range(1810, 2000+1, 10))
-save_files(yrs, loc, '../vectors/clean_for_pub/', 'sgns')
+                        print(words[en], end=' ')
+loc = '../vectors/coha_10_years/'
+yrs = list(range(1970, 2009+1, 10))
+save_files(yrs, loc, '../vectors/coha_10_years_processed/', 'sgns')

@@ -37,7 +37,7 @@ def normalize(filename, filename_output):
   with open(filename_output, 'w') as fo:
     writer = csv.writer(fo, delimiter = ' ')
     with open(filename, 'r') as f:
-      reader = csv.reader(f, delimiter = ' ')
+      reader = csv.reader([l.replace('\0', '') for l in f.readlines()], delimiter = ' ')
       for row in reader:
         rowout = row
         word = re.sub('[^a-z]+', '', row[0].strip().lower())
@@ -57,13 +57,13 @@ def normalize(filename, filename_output):
   print(countnorm0, countnormal)
 
 def normalize_vectors():
-  folder = '../vectors/clean_for_pub/'
+  folder = '../vectors/coha_10_years_processed/'
   # filenames_ldc95 = [folder + 'vectorsldc95_{}.txt'.format(x) for x in ['NYT', 'LATWP', 'REUFF', 'REUTE', 'WSJ']]
 
-  filenames_coha = [(folder + 'vectors_sgns{}.txt'.format(x)) for x in range(1810, 2000+1, 10)]
+  filenames_coha = [(folder + 'vectors_sgns{}.txt'.format(x)) for x in range(1970, 2009+1, 10)]
 
   for name in filenames_coha:
-    filename_output = name.replace('clean_for_pub/','normalized_clean/')
+    filename_output = name.replace('coha_10_years_processed/','normalized_clean_coha_10_years/')
     print(name,filename_output)
     normalize(name, filename_output)
 
@@ -71,43 +71,11 @@ if __name__ == "__main__":
   normalize_vectors()
 
 # (py39) kesong@Kesongs-MacBook-Pro dataset_utilities % python normalize_vectors.py
-# ../vectors/clean_for_pub/vectors_sgns1810.txt ../vectors/normalized_clean/vectors_sgns1810.txt
-# 48716 1211
-# ../vectors/clean_for_pub/vectors_sgns1820.txt ../vectors/normalized_clean/vectors_sgns1820.txt
-# 44656 5271
-# ../vectors/clean_for_pub/vectors_sgns1830.txt ../vectors/normalized_clean/vectors_sgns1830.txt
-# 41272 8655
-# ../vectors/clean_for_pub/vectors_sgns1840.txt ../vectors/normalized_clean/vectors_sgns1840.txt
-# 40388 9539
-# ../vectors/clean_for_pub/vectors_sgns1850.txt ../vectors/normalized_clean/vectors_sgns1850.txt
-# 40417 9510
-# ../vectors/clean_for_pub/vectors_sgns1860.txt ../vectors/normalized_clean/vectors_sgns1860.txt
-# 40084 9843
-# ../vectors/clean_for_pub/vectors_sgns1870.txt ../vectors/normalized_clean/vectors_sgns1870.txt
-# 39734 10193
-# ../vectors/clean_for_pub/vectors_sgns1880.txt ../vectors/normalized_clean/vectors_sgns1880.txt
-# 39215 10712
-# ../vectors/clean_for_pub/vectors_sgns1890.txt ../vectors/normalized_clean/vectors_sgns1890.txt
-# 39179 10748
-# ../vectors/clean_for_pub/vectors_sgns1900.txt ../vectors/normalized_clean/vectors_sgns1900.txt
-# 38533 11394
-# ../vectors/clean_for_pub/vectors_sgns1910.txt ../vectors/normalized_clean/vectors_sgns1910.txt
-# 38332 11595
-# ../vectors/clean_for_pub/vectors_sgns1920.txt ../vectors/normalized_clean/vectors_sgns1920.txt
-# 37116 12811
-# ../vectors/clean_for_pub/vectors_sgns1930.txt ../vectors/normalized_clean/vectors_sgns1930.txt
-# 37464 12463
-# ../vectors/clean_for_pub/vectors_sgns1940.txt ../vectors/normalized_clean/vectors_sgns1940.txt
-# 37591 12336
-# ../vectors/clean_for_pub/vectors_sgns1950.txt ../vectors/normalized_clean/vectors_sgns1950.txt
-# 37352 12575
-# ../vectors/clean_for_pub/vectors_sgns1960.txt ../vectors/normalized_clean/vectors_sgns1960.txt
-# 37464 12463
-# ../vectors/clean_for_pub/vectors_sgns1970.txt ../vectors/normalized_clean/vectors_sgns1970.txt
-# 37368 12559
-# ../vectors/clean_for_pub/vectors_sgns1980.txt ../vectors/normalized_clean/vectors_sgns1980.txt
-# 36497 13430
-# ../vectors/clean_for_pub/vectors_sgns1990.txt ../vectors/normalized_clean/vectors_sgns1990.txt
-# 35465 14462
-# ../vectors/clean_for_pub/vectors_sgns2000.txt ../vectors/normalized_clean/vectors_sgns2000.txt
-# 34828 15099
+# ../vectors/coha_10_years_processed/vectors_sgns1970.txt ../vectors/normalized_clean_coha_10_years/vectors_sgns1970.txt
+# 0 48631
+# ../vectors/coha_10_years_processed/vectors_sgns1980.txt ../vectors/normalized_clean_coha_10_years/vectors_sgns1980.txt
+# 0 47331
+# ../vectors/coha_10_years_processed/vectors_sgns1990.txt ../vectors/normalized_clean_coha_10_years/vectors_sgns1990.txt
+# 0 47746
+# ../vectors/coha_10_years_processed/vectors_sgns2000.txt ../vectors/normalized_clean_coha_10_years/vectors_sgns2000.txt
+# 0 48099
