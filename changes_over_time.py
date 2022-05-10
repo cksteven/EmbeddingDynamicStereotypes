@@ -253,7 +253,7 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
 
             d['indiv_distances_neutral_'+neut] = dloc_neutral
 
-    with open('run_results/'+csvname, 'ab') as cf:
+    with open('run_results/'+csvname, 'a') as cf:
         headerorder = ['datetime', 'label']
         headerorder.extend(sorted(list(d.keys())))
         print(headerorder)
@@ -265,7 +265,7 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
         csvwriter.writerow(d)
         cf.flush()
 
-folder = '../vectors/normalized_clean/'
+folder = 'vectors/normalized_clean/'
 
 filenames_nyt = [folder + 'vectorsnyt{}-{}.txt'.format(x, x+3) for x in range(1987, 2005, 1)]
 filenames_sgns = [folder + 'vectors_sgns{}.txt'.format(x) for x in range(1910, 2000, 10)]
