@@ -3,11 +3,12 @@ import numpy as np
 from sklearn.decomposition import PCA
 import sys
 from io import StringIO
+import pickle
 
 def load_yr(yr, loc):
     vectors = np.load('{}{}-w.npy'.format(loc,yr))
-    words = np.load('{}{}-vocab.pkl'.format(loc, yr))
-    counts = np.load('{}{}{}-counts.pkl'.format(loc, '../counts/', yr))
+    words = pickle.load(open('{}{}-vocab.pkl'.format(loc, yr), "rb"))
+    counts = pickle.load(open('{}{}{}-counts.pkl'.format(loc, '../counts/', yr), "rb"), encoding='latin1')
     return vectors, words, counts
 
 def save_files(yrs, oldloc, newloc, label):
@@ -27,6 +28,6 @@ def save_files(yrs, oldloc, newloc, label):
                         csvwritervoc.writerow([words[en], counts[words[en]]])
                     except:
                         print(words[en], counts[words[en]], end=' ')
-loc = '../vectors/coha/svd/'
-yrs = list(range(1800, 2000, 10))
-save_files(yrs, loc, '../vectors/clean_for_pub/', 'svd')
+loc = '../vectors/coha/sgns/'
+yrs = list(range(1810, 2000+1, 10))
+save_files(yrs, loc, '../vectors/clean_for_pub/', 'sgns')
