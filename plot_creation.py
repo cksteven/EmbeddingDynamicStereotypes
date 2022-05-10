@@ -93,6 +93,11 @@ def plot_averagebias_over_time_consistentoccupations(row, label='', neutral_word
         if overlay_with_occ_percents and any(np.isnan(occpercents[occup])):continue
         difs = differences(row['indiv_distances_neutral_{}'.format(neutral_words)][occup][
                                     group1 + ''][4], row['indiv_distances_neutral_{}'.format(neutral_words)][occup][group2 + ''][4])[shift:]
+
+        print("VEC1", row['indiv_distances_neutral_{}'.format(neutral_words)][occup][
+                                    group1 + ''][4])
+        print("VEC2", row['indiv_distances_neutral_{}'.format(neutral_words)][occup][group2 + ''][4])
+
         if any(np.isnan(difs)):continue
         if normalize_by_pairsdist:
             difs = [difs[en]/group_distances[en] for en in range(len(difs))]
@@ -104,6 +109,7 @@ def plot_averagebias_over_time_consistentoccupations(row, label='', neutral_word
     arembed = np.array(occ_differences_dist)
     if shift!=0: yrs= yrs[0:-shift]
     yrs_plot = [x + shift_yrs_plot_labels for x in yrs]
+    print("DEBUG", arembed.shape, len(yrs))
     sns.tsplot(arembed, time=yrs_plot, estimator=np.nanmean, ax = ax1)
 
     if overlay_with_occ_percents:

@@ -26,6 +26,8 @@ def calc_distance_between_words(vectors, word1, word2, distype = 'norm'):
         return np.nan
 def calc_distance_over_time(vectors_over_time, word1, word2, distype = 'norm', vocabd = None, word1lims = [50, 1e25], word2lims = [50, 1e25]):
     ret = []
+    vocabd = None
+
     for en,vectors in enumerate(vectors_over_time):
         if vocabd is None or vocabd[en] is None:
             ret.append(calc_distance_between_words(vectors, word1, word2, distype))
@@ -40,6 +42,7 @@ def calc_distance_over_time(vectors_over_time, word1, word2, distype = 'norm', v
     return ret
 
 def calc_distance_over_time_averagevectorsfirst(vectors_over_time, words_to_average_1, words_to_average_2, distype = 'norm', vocabd = None, word1lims = [50, 1e25], word2lims = [50, 1e25]):
+    vocabd = None
     retbothaveraged = []
     retfirstaveraged = []
     retsecondaveraged = []
@@ -48,18 +51,21 @@ def calc_distance_over_time_averagevectorsfirst(vectors_over_time, words_to_aver
         validwords1 = []
         validwords2 = []
         for word in words_to_average_1:
-            if vocabd is not None and vocabd[en] is not None and word in vocabd[en] and word in vectors_over_time[en]:
+            # print("AAAA", word, word in vectors_over_time[en].keys())
+            if vocabd is not None and vocabd[en] is not None and word in vocabd[en] and word in vectors_over_time[en].keys():
                 if vocabd[en][word] < word1lims[0] or vocabd[en][word] > word1lims[1]: continue
                 validwords1.append(word)
-            elif (vocabd is None or vocabd[en] is None) and word in vectors_over_time[en]:
+            elif (vocabd is None or vocabd[en] is None) and word in vectors_over_time[en].keys():
                 validwords1.append(word)
 
+        # print("DDDD", len(validwords1))
+        # STOP
 
         for word in words_to_average_2:
-            if vocabd is not None and vocabd[en] is not None and word in vocabd[en] and word in vectors_over_time[en]:
+            if vocabd is not None and vocabd[en] is not None and word in vocabd[en] and word in vectors_over_time[en].keys():
                 if vocabd[en][word] < word2lims[0] or vocabd[en][word] > word2lims[1]: continue
                 validwords2.append(word)
-            elif (vocabd is None or vocabd[en] is None) and word in vectors_over_time[en]:
+            elif (vocabd is None or vocabd[en] is None) and word in vectors_over_time[en].keys():
                 validwords2.append(word)
         #if lengths of the valids are 0, distance is nan
         if len(validwords1) == 0 or len(validwords2) == 0:
@@ -69,6 +75,10 @@ def calc_distance_over_time_averagevectorsfirst(vectors_over_time, words_to_aver
         else:
             average_vector_1 = np.mean(np.array([vectors[word] for word in validwords1]), axis = 0)
             average_vector_2 = np.mean(np.array([vectors[word] for word in validwords2]), axis = 0)
+
+            # print(np.array([vectors[word] for word in validwords1]))
+            # print(np.array([vectors[word] for word in validwords1]).shape)
+            # STOP
 
             retbothaveraged.append(calc_distance_between_vectors(average_vector_1,average_vector_2, distype))
             retfirstaveraged.append(np.mean([calc_distance_between_vectors(average_vector_1,vectors[word], distype) for word in validwords2]))
@@ -177,7 +187,7 @@ def get_counts_dictionary(vocabd, neutwords):
     return dwords
 
 def get_vector_variance(vectors_over_time, words, vocabd = None, word1lims = [50, 1e25], word2lims = [50, 1e25]):
-
+    vocabd = None
     variances = []
     for en,vectors in enumerate(vectors_over_time):
         validwords = []
@@ -211,14 +221,14 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
     for grouplist in group_lists:
         with open('data/'+grouplist + '.txt', 'r') as f2:
             groupwords = [x.strip() for x in list(f2)]
-            d['counts_all'][grouplist] = get_counts_dictionary(vocabd, groupwords)
+            d['counts_all'][grouplist] = None
             d['variance_over_time'][grouplist] = get_vector_variance(vectors_over_time, groupwords)
 
     for neuten, neut in enumerate(neutral_lists):
         with open('data/'+neut + '.txt', 'r') as f:
             neutwords = [x.strip() for x in list(f)]
 
-            d['counts_all'][neut] = get_counts_dictionary(vocabd, neutwords)
+            d['counts_all'][neut] = None
             d['variance_over_time'][neut] = get_vector_variance(vectors_over_time, neutwords)
 
             dloc_neutral = {}
@@ -265,10 +275,12 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
         csvwriter.writerow(d)
         cf.flush()
 
-folder = 'vectors/normalized_clean/'
+folder = 'vectors/normalized_clean_coha_10_years/'
 
 filenames_nyt = [folder + 'vectorsnyt{}-{}.txt'.format(x, x+3) for x in range(1987, 2005, 1)]
-filenames_sgns = [folder + 'vectors_sgns{}.txt'.format(x) for x in range(1910, 2000, 10)]
+
+filenames_sgns = [folder + 'vectors_sgns{}.txt'.format(x) for x in range(1970, 2009+1, 10)]
+
 filenames_svd = [folder + 'vectors_svd{}.txt'.format(x) for x in range(1910, 2000, 10)]
 filenames_google = [folder + 'vectorsGoogleNews_exactclean.txt']
 filenames_wikipedia = [folder + 'vectorswikipedia.txt']
