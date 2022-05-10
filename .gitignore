@@ -3,8 +3,8 @@
 .idea/*
 *.ipynb_checkpoints*
 *.pkl
-*.pdf
-*.png
+# *.pdf
+# *.png
 __pycache__*
 *.py.bak
 # plots/*
