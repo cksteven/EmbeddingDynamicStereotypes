@@ -27,7 +27,7 @@ def main(filenametodo = 'run_results/finalrun.csv'):
 
     rows = load_file(filenametodo)
 
-    print(rows.keys())
+    print((list(rows.keys())))
 
     plots_to_do_gender_static = [
         [scatter_occupation_percents_distances, [rows['google'], 'google', 'occupations1950', 'male_pairs', 'female_pairs', -1,'data/occupation_percentages_gender_occ1950.csv',load_occupationpercent_data, occupation_func_female_percent, [-.15, .15],[-100, 100], False, False, 'norm', 'png']],
@@ -97,8 +97,8 @@ def main(filenametodo = 'run_results/finalrun.csv'):
     ]
 
     plots_to_do_appendix_gender_dynamic = [
-    [do_over_time_trend_test, [rows['sgns'], 'sgns', 'adjectives_intelligencegeneral', 'male_pairs', 'female_pairs', False, '', range(1960, 2000, 10)]],
-    [do_over_time_trend_test, [rows['sgns'], 'sgns', 'adjectives_appearance', 'male_pairs', 'female_pairs', False,'',range(1960, 2000, 10)]],
+    [do_over_time_trend_test, [rows['sgns'], 'sgns', 'adjectives_intelligencegeneral', 'male_pairs', 'female_pairs', False, '', list(range(1960, 2000, 10))]],
+    [do_over_time_trend_test, [rows['sgns'], 'sgns', 'adjectives_appearance', 'male_pairs', 'female_pairs', False,'',list(range(1960, 2000, 10))]],
     ]
 
     plots_to_do = []
@@ -106,35 +106,35 @@ def main(filenametodo = 'run_results/finalrun.csv'):
     set_plots_folder(plots_folder + 'gender/')
 
     for plot in plots_to_do_gender_static:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
     for plot in plots_to_do_gender_dynamic:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
 
     set_plots_folder(plots_folder + 'ethnicity/')
     for plot in plots_to_do_race_dynamic:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
 
     set_plots_folder(plots_folder + 'appendix/')
     for plot in plots_to_do_appendix_general:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
 
     set_plots_folder(plots_folder + 'appendix/' + 'gender/')
     for plot in plots_to_do_appendix_gender_static:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
     for plot in plots_to_do_appendix_gender_dynamic:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
     set_plots_folder(plots_folder + 'appendix/' + 'ethnicity/')
     for plot in plots_to_do_appendix_raceasian_static:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
     for plot in plots_to_do_appendix_racehispanic_static:
-        print(plot[0], plot[1][1:])
+        print((plot[0], plot[1][1:]))
         plot[0](*plot[1])
 
 

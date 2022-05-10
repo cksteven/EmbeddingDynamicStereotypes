@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 import sys
-from cStringIO import StringIO
+from io import StringIO
 import copy
 import datetime
 
@@ -77,7 +77,7 @@ def calc_distance_over_time_averagevectorsfirst(vectors_over_time, words_to_aver
     return retbothaveraged, retfirstaveraged, retsecondaveraged
 
 def load_vectors(filename):
-    print filename
+    print(filename)
     vectors = {}
     with open(filename, 'r') as f:
         reader = csv.reader(f, delimiter = ' ')
@@ -204,7 +204,7 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
 
     d = {}
     vectors_over_time = load_vectors_over_time(filenames)
-    print('vocab size: ' + str([len(v.keys()) for v in vectors_over_time]))
+    print(('vocab size: ' + str([len(list(v.keys())) for v in vectors_over_time])))
     d['counts_all'] = {}
     d['variance_over_time'] = {}
 
@@ -225,7 +225,7 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
 
             for grouplist in group_lists:
                 with open('data/'+grouplist + '.txt', 'r') as f2:
-                    print neut, grouplist
+                    print(neut, grouplist)
                     groupwords = [x.strip() for x in list(f2)]
                     distances = single_set_distances_to_single_set(vectors_over_time, neutwords, groupwords, vocabd)
 
@@ -256,7 +256,7 @@ def main(filenames, label, csvname = None, neutral_lists = [], group_lists = ['m
     with open('run_results/'+csvname, 'ab') as cf:
         headerorder = ['datetime', 'label']
         headerorder.extend(sorted(list(d.keys())))
-        print headerorder
+        print(headerorder)
         d['label'] = label
         d['datetime'] = datetime.datetime.now()
 

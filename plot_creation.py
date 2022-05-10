@@ -137,7 +137,7 @@ def identify_top_biases_individual_threegroups(row, label='', neutral_words='', 
 
 
     yrs = get_years(label)
-    print(label, yrs)
+    print((label, yrs))
 
     for index in indices:
         occup_differences_group1 = []
@@ -240,7 +240,7 @@ def identify_top_biases_individual(row, label='', neutral_words='', group1='male
             group2overtime.append(list(reversed([occups[en] for en in argsortted_reg]))[0:15])
 
             if printovertime:
-                print("For label {}, neutral words {}, groups {}{}, yr {}".format(label, neutral_words, group1, group2, yr))
+                print(("For label {}, neutral words {}, groups {}{}, yr {}".format(label, neutral_words, group1, group2, yr)))
                 print(("most {}: {}".format(group1, [occups[en] for en in argsortted_reg[0:15]])))
                 print(("most {}: {}".format(group2, list(reversed([occups[en] for en in argsortted_reg]))[0:15])))
                 # better format:
@@ -248,7 +248,7 @@ def identify_top_biases_individual(row, label='', neutral_words='', group1='male
                 print(group1)
                 for x in [occups[en] for en in argsortted_reg[0:14]]:
                     print (x)
-                print('\n'+ group2)
+                print(('\n'+ group2))
                 for x in list(reversed([occups[en] for en in argsortted_reg]))[0:14]:
                     print (x)
     #table format for most:
@@ -274,56 +274,56 @@ def identify_top_biases_individual(row, label='', neutral_words='', group1='male
     argsortted_cossim = [i for i in np.argsort(
             occup_differences_cossim) if not np.isnan(occup_differences_cossim[i])]
     if lendif > 1:
-        print('top changes toward {}'.format(group2))
+        print(('top changes toward {}'.format(group2)))
         for en in argsortted_reg[0:15]:
-            print(occups[en])
-        print('top changes toward {}'.format(group1))
+            print((occups[en]))
+        print(('top changes toward {}'.format(group1)))
         for en in reversed(argsortted_reg[-15:-1]):
-            print(occups[en])
+            print((occups[en]))
 
         ranks_time0 = scipy.stats.rankdata(occupraw_time0) #rank 0 is most negative, ie most group1
         ranks_timelast = scipy.stats.rankdata(occupraw_timelast)
         ranks_differences = np.subtract(ranks_time0, ranks_timelast) #more negative, more shifted toward group2
         ranks_differences_argsorted = np.argsort(ranks_differences) #index 0 is most negative, i.e. most shifted toward group2
         num_total = float(len(ranks_time0))
-        print('total of this neutral words: ' + str(num_total))
-        print('top changes toward {} in rank, overall'.format(group2))
+        print(('total of this neutral words: ' + str(num_total)))
+        print(('top changes toward {} in rank, overall'.format(group2)))
         for en in ranks_differences_argsorted[0:15]:
-            print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+            print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
 
-        print('top changes toward {} in rank, overall'.format(group1))
+        print(('top changes toward {} in rank, overall'.format(group1)))
         for en in reversed(ranks_differences_argsorted[-15:-1]):
-            print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+            print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
 
-        print('top changes toward {} in rank, to top'.format(group2))
+        print(('top changes toward {} in rank, to top'.format(group2)))
         printed = 0
         for en in ranks_differences_argsorted:
             if ranks_timelast[en]/num_total > 1 - max(15.0/num_total, .08): #1 - .1: #now in top 10%
-                print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+                print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
                 printed+=1
             if printed==15: break
 
         printed = 0
-        print('top changes toward {} in rank, to top'.format(group1))
+        print(('top changes toward {} in rank, to top'.format(group1)))
         for en in reversed(ranks_differences_argsorted):
             if ranks_timelast[en]/num_total < max(15.0/num_total, .08): #now in top 10%
-                print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+                print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
                 printed+=1
             if printed==15: break
 
-        print('top changes away from {} in rank, from top'.format(group2))
+        print(('top changes away from {} in rank, from top'.format(group2)))
         printed = 0
         for en in reversed(ranks_differences_argsorted):
             if ranks_time0[en]/num_total > 1 - max(15.0/num_total, .08): #was in top 10%
-                print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+                print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
                 printed+=1
             if printed==15: break
 
         printed = 0
-        print('top changes away from {} in rank, from top'.format(group1))
+        print(('top changes away from {} in rank, from top'.format(group1)))
         for en in ranks_differences_argsorted:
             if ranks_time0[en]/num_total < max(15.0/num_total, .08): #was in top 10%
-                print('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en]))
+                print(('occup: {} rank first: {} rank last: {}'.format(occups[en], ranks_time0[en], ranks_timelast[en])))
                 printed+=1
             if printed==15: break
 
@@ -361,7 +361,7 @@ def static_cross_correlation_table(rows, labels, neutral_list_name = 'occupation
         for en1 in range(len(rows)):
             for en2 in range(len(rows)):
                 corr, pvalue  = pearsonr(differences_all_lists[en1], differences_all_lists[en2])
-                print("{}{}{} vs {}{}{}: corr: {} ({})".format(labels[en1], norm_types[en1], indices[en1], labels[en2], norm_types[en2], indices[en2], corr, pvalue))
+                print(("{}{}{} vs {}{}{}: corr: {} ({})".format(labels[en1], norm_types[en1], indices[en1], labels[en2], norm_types[en2], indices[en2], corr, pvalue)))
 
 def test_phase_shift_heatmap(yrs_to_include, heatmap):
     adjacent_difs_to_test = [[] for _ in range(len(yrs_to_include)-1)]
@@ -369,7 +369,7 @@ def test_phase_shift_heatmap(yrs_to_include, heatmap):
         for end in range(len(heatmap[en1,:])):
             adjacent_difs_to_test[en1].append(abs(heatmap[en1+1,end] - heatmap[en1,end]))
     for current_checking in range(len(yrs_to_include)-1):
-        print('current checking: ', current_checking)
+        print(('current checking: ', current_checking))
         adjacent_difs_actualtestones = adjacent_difs_to_test[current_checking]# for x in yr_indices_to_check_change]
         all_others = []
         for i in range(len(yrs_to_include)-1):
@@ -378,7 +378,7 @@ def test_phase_shift_heatmap(yrs_to_include, heatmap):
 #         plt.hist([adjacent_difs_actualtestones, all_others], normed = True)
 #         plt.show()
 
-        print(scipy.stats.ks_2samp(adjacent_difs_actualtestones, all_others)[1])
+        print((scipy.stats.ks_2samp(adjacent_difs_actualtestones, all_others)[1]))
 
 
 def create_cross_time_correlation_heatmap_differencestoself(row, label='', neutral_words='', group1='', group2 = '', yrs_to_include = None, saveformat = 'png'):
@@ -477,7 +477,7 @@ def plot_overtime_scatter(row, label='', neutral_words='', group1='male', group2
 def individual_regression_coefficients_for_overtime_scatter(occup_distances_all, occup_percents_all, years_all, label):
     #train a separate model for each year, report the coefficient, r^2, and p-value for each year in a table in the appendix
     yrs_order = list(sorted(set(years_all)))
-    print('{} & {} & {} & {} & {} & {} \\\\'.format('Year', 'r^2', 'coefficient p-value', 'coefficient value', 'intercept p-value', 'intercept value') )
+    print(('{} & {} & {} & {} & {} & {} \\\\'.format('Year', 'r^2', 'coefficient p-value', 'coefficient value', 'intercept p-value', 'intercept value') ))
     for yr in yrs_order:
         y = [occup_distances_all[en] for en in range(len(occup_distances_all)) if years_all[en] == yr]
         x = [occup_percents_all[en] for en in range(len(occup_percents_all)) if years_all[en] == yr]
@@ -486,7 +486,7 @@ def individual_regression_coefficients_for_overtime_scatter(occup_distances_all,
         df.columns = ['embedding bias', 'occup percent']
         df['const'] = 1
         model = sm.OLS(df['embedding bias'], df[['occup percent', 'const']]).fit()
-        print('{} & ${:.4}$ & ${:.4}$ & ${:.4} \pm {:.4}$& ${:.4}$ & ${:.4} \pm {:.4}$\\\\'.format(yr,model.rsquared,model.pvalues[0], model.params[0], model.bse[0],model.pvalues[1], model.params[1], model.bse[1] )) # summarize_model(model)
+        print(('{} & ${:.4}$ & ${:.4}$ & ${:.4} \pm {:.4}$& ${:.4}$ & ${:.4} \pm {:.4}$\\\\'.format(yr,model.rsquared,model.pvalues[0], model.params[0], model.bse[0],model.pvalues[1], model.params[1], model.bse[1] ))) # summarize_model(model)
 
 
 def overtime_scatter_errorusingallotheryears(x, y, years_all, label, xlabel='', ylabel='', saveformat='pdf'):
@@ -498,7 +498,7 @@ def overtime_scatter_errorusingallotheryears(x, y, years_all, label, xlabel='', 
 
     yrs_order = list(sorted(set(years_all)))
     pallete = sns.color_palette("hls", len(yrs_order))
-    print('{} & {} & {} \\\\'.format('Year', 'MSE using own model', 'MSE using model from other years') )
+    print(('{} & {} & {} \\\\'.format('Year', 'MSE using own model', 'MSE using model from other years') ))
     for enn, yr in enumerate(yrs_order):
         #train model on specific year only, get MSE;
         xloc_thisyear = [x[en] for en in range(len(x)) if years_all[en] == yr]
@@ -524,7 +524,7 @@ def overtime_scatter_errorusingallotheryears(x, y, years_all, label, xlabel='', 
 
         #then on all years.
         mse_forallyears = np.average(np.power(np.subtract(yloc_thisyear, [yy for en, yy in enumerate(model_allyears.fittedvalues) if years_all[en] == yr]), 2))
-        print('{} & ${:.4}$ & ${:.4}$ \\\\'.format(yr, mse_thisyear, mse_forallyears) )
+        print(('{} & ${:.4}$ & ${:.4}$ \\\\'.format(yr, mse_thisyear, mse_forallyears) ))
     sns.regplot(x=np.array(x), y=np.array(y), scatter = False, color= 'b')
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -569,15 +569,15 @@ def residual_analysis_with_stereotypes(row, label, neutral_list_name = 'occupati
     plot_scatter_and_regression(stereotype_scores, embedding_difs,'{}{}turkstereotypescores_vs_embedding_{}{}{}'.format(label, get_years(label)[-1],neutral_list_name, group1, group2),sizes = None,  ylabel = '{} Bias'.format(pretty_axis_labels[group2]), xlabel = "Stereotype Score", ylim = [-.15, .15]\
     , xlim = None, do_regression_with_counts = False, counts = None, condensed_print = False, saveformat = saveformat, includesquared = False)
 
-    print('occupations: ', str(occupations_in_order))
+    print(('occupations: ', str(occupations_in_order)))
 
     #look at residuals of each vs occupation to see if correlated
     resids_embedding = get_model_residuals(embedding_difs, occ_props)
     resids_stereotypes = get_model_residuals(stereotype_scores, occ_props)
-    print('Pearson Correlation of residuals: {}'.format(pearsonr(resids_embedding, resids_stereotypes)))
+    print(('Pearson Correlation of residuals: {}'.format(pearsonr(resids_embedding, resids_stereotypes))))
     order = np.argsort(resids_embedding)
     for en in order:
-        print('{}: {:.2f}, {:.2f}'.format(occupations_in_order[en], resids_embedding[en], resids_stereotypes[en]))
+        print(('{}: {:.2f}, {:.2f}'.format(occupations_in_order[en], resids_embedding[en], resids_stereotypes[en])))
 
     # print('Residuals vs x values:')
     # print(pearsonr(resids_embedding, occ_props))
@@ -591,24 +591,24 @@ def residual_analysis_with_stereotypes(row, label, neutral_list_name = 'occupati
     df.columns = ['embedding bias', 'occupation proportion']
     df['const'] = 1
     model = sm.OLS(df['embedding bias'], df[['occupation proportion', 'const']]).fit()
-    print(model.summary().as_latex())
-    print(model.pvalues)
+    print((model.summary().as_latex()))
+    print((model.pvalues))
 
     df = pd.DataFrame([embedding_difs, stereotype_scores])
     df = df.transpose()
     df.columns = ['embedding bias', 'stereotype_scores']
     df['const'] = 1
     model = sm.OLS(df['embedding bias'], df[['stereotype_scores', 'const']]).fit()
-    print(model.summary().as_latex())
-    print(model.pvalues)
+    print((model.summary().as_latex()))
+    print((model.pvalues))
 
     df = pd.DataFrame([embedding_difs, occ_props, stereotype_scores])
     df = df.transpose()
     df.columns = ['embedding bias', 'occupation proportion', 'stereotype_scores']
     df['const'] = 1
     model = sm.OLS(df['embedding bias'], df[['occupation proportion', 'stereotype_scores', 'const']]).fit()
-    print(model.summary().as_latex())
-    print(model.pvalues)
+    print((model.summary().as_latex()))
+    print((model.pvalues))
 
 def scatter_occupation_percents_distances(row, label, neutral_list_name = 'occupations1950', group1 = 'male_pairs', group2 = 'female_pairs', index = 0, occ_percents_file='data/occupation_percentages_gender_occ1950.csv', load_objective_data = load_occupationpercent_data, occ_func=occupation_func_female_percent, ylim = [-6, 6], xlim = [-.15, .15], do_regression_with_counts = False, condensed_print = False, norm_type = 'norm', saveformat = 'pdf', toskip = [], limitfile = None):
 
@@ -645,10 +645,10 @@ def scatter_occupation_percents_distances(row, label, neutral_list_name = 'occup
     # get_highest_residual_occupations(copy.copy(scatter_vals[0]), copy.copy(scatter_vals[1]), group1, group2, occupations_in_order)
 
     print('most extreme values in each direction (for labeling)')
-    print('most x axis positive: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[1])[::-1][0:5]]))
-    print('most x axis negative: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[1])[0:5]]))
-    print('most y axis positive: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[0])[::-1][0:5]]))
-    print('most y axis negative: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[0])[0:5]]))
+    print(('most x axis positive: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[1])[::-1][0:5]])))
+    print(('most x axis negative: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[1])[0:5]])))
+    print(('most y axis positive: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[0])[::-1][0:5]])))
+    print(('most y axis negative: {}'.format([(occupations_in_order[en], scatter_vals[0][en], scatter_vals[1][en]) for en in np.argsort(scatter_vals[0])[0:5]])))
 
     if norm_type == 'norm':
         plot_scatter_and_regression(scatter_vals[1],scatter_vals[0],'{}{}_distancedifferencessameyear_vs_percents_{}{}{}{}{}'.format(label, get_years(label)[index],neutral_list_name, group1, group2, limitfile,occ_func.savelabel),sizes = scatter_sizes,  ylabel = '{} Bias'.format(pretty_axis_labels[group2]), xlabel = occ_func.label, ylim = ylim, xlim = xlim, do_regression_with_counts = do_regression_with_counts, counts = occ_freq_counts, condensed_print = condensed_print, saveformat = saveformat)
@@ -678,8 +678,8 @@ def get_highest_residual_occupations(distances, percents, group1, group2, occupa
         # if abs(percents[en])<1: only_for_balanced_en.append(en)
 
     order_highest_residuals = np.argsort(residuals) #first index is actual group1 orientation far more than predicted by occupation percent
-    print('More {} biased than percent implies: {}'.format(group1, [(occupations_in_order[en], residuals[en]) for en in order_highest_residuals[0:15]]))
-    print('More {} biased than percent implies: {}'.format(group2, [(occupations_in_order[order_highest_residuals[-inn]], residuals[order_highest_residuals[-inn]]) for inn in range(1, 16)]))
+    print(('More {} biased than percent implies: {}'.format(group1, [(occupations_in_order[en], residuals[en]) for en in order_highest_residuals[0:15]])))
+    print(('More {} biased than percent implies: {}'.format(group2, [(occupations_in_order[order_highest_residuals[-inn]], residuals[order_highest_residuals[-inn]]) for inn in range(1, 16)])))
 
 def get_biases_individual(row, label='', neutral_words='', group1='male', group2='female'):
     yrs = get_years(label)
@@ -729,7 +729,7 @@ def princeton_trilogy_plots(row, label, group1em, group2em, group2princeton):
             if wrd not in differences or np.isnan(differences[wrd][yr_indices[0]]) or np.isnan(differences[wrd][yr_indices[-1]]): continue
             emdifs.append(differences[wrd][yr_indices[2]] - differences[wrd][yr_indices[0]])
             scores.append(sscores[group2princeton]['1960'][wrd][0] - sscores[group2princeton]['1930'][wrd][0])
-            print(wrd, emdifs[-1],scores[-1])
+            print((wrd, emdifs[-1],scores[-1]))
 
     plot_scatter_and_regression(x = np.array(scores), y = np.array(emdifs), label =  "princetontrilogy_differencesbwyears_{}{}{}".format(label, group1em, group2em), xlabel = 'Chinese Score(1967) - Score(1933)', ylabel = 'Chinese Embedding bias change')
 
@@ -741,7 +741,7 @@ def princeton_trilogy_plots(row, label, group1em, group2em, group2princeton):
             if wrd not in differences or np.isnan(differences[wrd][yr_indices[en]]): continue
             emdifs.append(differences[wrd][yr_indices[en]])
             scores.append(sscores[group2princeton][yr][wrd][0])
-            print(wrd, yr, differences[wrd][yr_indices[en]],sscores[group2princeton][yr][wrd][0])
+            print((wrd, yr, differences[wrd][yr_indices[en]],sscores[group2princeton][yr][wrd][0]))
 #     print(scores, emdifs)
 
     plot_scatter_and_regression(x = np.array(scores), y = np.array(emdifs),label =  "princetontrilogy_allpoints_{}{}{}".format(label, group1em, group2em), xlabel = 'Princeton Trilogy Chinese Score', ylabel = 'Chinese Embedding bias')
@@ -806,8 +806,8 @@ def plot_scatter_and_regression(x, y, label, xlabel = '', ylabel = '', sizes = N
         df.drop('yr', axis=1, inplace=True)
         df[dummies.columns] = dummies
         model = sm.OLS(df[ylabel], df[df.columns[1:]]).fit()
-        print(model.summary().as_latex())
-        print(model.pvalues)
+        print((model.summary().as_latex()))
+        print((model.pvalues))
         print('regression with x and years')
 
         yrs = np.array([yrs_for_regression[en] for en in order])
@@ -819,8 +819,8 @@ def plot_scatter_and_regression(x, y, label, xlabel = '', ylabel = '', sizes = N
         df.drop('yr', axis=1, inplace=True)
         df[dummies.columns] = dummies
         model = sm.OLS(df[ylabel], df[df.columns[1:]]).fit()
-        print(model.summary().as_latex())
-        print(model.pvalues)
+        print((model.summary().as_latex()))
+        print((model.pvalues))
         df_save = summarize_model(model)
         df_save.to_csv('regressions/{}withyears.csv'.format(label))
 
@@ -833,7 +833,7 @@ def plot_scatter_and_regression(x, y, label, xlabel = '', ylabel = '', sizes = N
         residuals= model.resid
         print('average residual by year:')
         for yr in list(sorted(set(yrs))):
-            print('{}: {}'.format(yr, np.average([residuals[en] for en in range(len(yrs)) if yrs[en] == yr])))
+            print(('{}: {}'.format(yr, np.average([residuals[en] for en in range(len(yrs)) if yrs[en] == yr]))))
     elif includesquared:
         df = pd.DataFrame([y, x, np.array([xx**2 for xx in x])])
         df = df.transpose()
@@ -847,8 +847,8 @@ def plot_scatter_and_regression(x, y, label, xlabel = '', ylabel = '', sizes = N
         df['const'] = 1
         model = sm.OLS(df[ylabel], df[[xlabel, 'const']]).fit()
 
-    print(model.summary().as_latex())
-    print(model.pvalues)
+    print((model.summary().as_latex()))
+    print((model.pvalues))
 
     df_save = summarize_model(model)
     df_save.to_csv('regressions/{}.csv'.format(label))
@@ -925,7 +925,7 @@ def vocab_counts(row, label, wordlist, plot = False, indices = None):
         all_freqs.append(ar)
         arnonan = [a for enn,a in enumerate(ar) if enn in indices and not np.isnan(a)]
         try:
-            print ('{:15s} {:6.0f} {:6.0f} {:6.0f} {}'.format(words[en], min(arnonan), max(arnonan), np.mean(arnonan), arnonan[2:6]))
+            print(('{:15s} {:6.0f} {:6.0f} {:6.0f} {}'.format(words[en], min(arnonan), max(arnonan), np.mean(arnonan), arnonan[2:6])))
         except:
             continue
         if plot:

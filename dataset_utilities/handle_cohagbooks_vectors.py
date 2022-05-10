@@ -2,7 +2,7 @@ import csv
 import numpy as np
 from sklearn.decomposition import PCA
 import sys
-from cStringIO import StringIO
+from io import StringIO
 
 def load_yr(yr, loc):
     vectors = np.load('{}{}-w.npy'.format(loc,yr))
@@ -12,8 +12,8 @@ def load_yr(yr, loc):
 
 def save_files(yrs, oldloc, newloc, label):
     for yr in yrs:
-        print '\n'
-        print yr
+        print('\n')
+        print(yr)
         vectors, words, counts = load_yr(yr, oldloc)
         with open('{}vectors_{}{}.txt'.format(newloc, label, yr), 'w') as f:
             with open('{}/vocab/vocab_{}{}.txt'.format(newloc, label, yr), 'w') as f2:
@@ -26,7 +26,7 @@ def save_files(yrs, oldloc, newloc, label):
                         csvwriter.writerow(row)
                         csvwritervoc.writerow([words[en], counts[words[en]]])
                     except:
-                        print words[en], counts[words[en]],
+                        print(words[en], counts[words[en]], end=' ')
 loc = '../vectors/coha/svd/'
-yrs = range(1800, 2000, 10)
+yrs = list(range(1800, 2000, 10))
 save_files(yrs, loc, '../vectors/clean_for_pub/', 'svd')

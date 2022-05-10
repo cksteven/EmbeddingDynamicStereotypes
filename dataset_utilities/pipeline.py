@@ -7,7 +7,7 @@ from normalize_vectors import *
 #PLEASE CHANGE RUNLABEL EVERY TIME YOU RUN IT. OTHERWISE YOU WILL OVERWRITE FILES
 
 def create_combined_years_dataset(startyr, endyr, FILELOCATION, append='', jump=1):
-    print "creating combined dataset", startyr, endyr
+    print("creating combined dataset", startyr, endyr)
     with open(FILELOCATION+ str(startyr) + '-'+str(endyr)+append+'.txt', 'w') as f:
         for yr in range(startyr, endyr, jump):
             with open(FILELOCATION + str(yr)+ '.txt', 'r') as fread:
@@ -17,7 +17,7 @@ def create_combined_years_dataset(startyr, endyr, FILELOCATION, append='', jump=
 
 cohafilesize = 200*1024*1024 #should be 200 MB in bytes
 def create_combined_years_dataset_coha(startyr, endyr, FILELOCATION, append='', jump=1):
-    print "creating combined dataset", startyr, endyr
+    print("creating combined dataset", startyr, endyr)
     lines = []
     with open(FILELOCATION+ 'coha'+ str(startyr) + '-'+str(endyr)+append+'.txt', 'w') as f:
         for yr in range(startyr, endyr, jump):
@@ -32,7 +32,7 @@ def create_combined_years_dataset_coha(startyr, endyr, FILELOCATION, append='', 
                 break
 
 def create_combined_years_glove(startyr, endyr, SAVELOCATION = '../../vectors/', GLOVELOCATION = './GloVe-1.2/', FILELOCATION ='../../databyyr/nyt/', append = ''):
-    print startyr
+    print(startyr)
     RUNLABEL = str(startyr) + '-'+str(endyr) + append
 
     if not os.path.isfile(FILELOCATION+RUNLABEL + '.txt'):
@@ -41,7 +41,7 @@ def create_combined_years_glove(startyr, endyr, SAVELOCATION = '../../vectors/',
     call_glove(RUNLABEL, GLOVELOCATION, SAVELOCATION, FILELOCATION, '')
 
 def create_combined_years_glove_coha(startyr,endyr, SAVELOCATION = './../vectors/', GLOVELOCATION = './GloVe-1.2/', FILELOCATION ='../databyyr/coha/', append = ''):
-    print startyr
+    print(startyr)
     RUNLABEL = str(startyr) + '-'+str(endyr) + append
 
     if not os.path.isfile(FILELOCATION+RUNLABEL + '.txt'):
@@ -50,7 +50,7 @@ def create_combined_years_glove_coha(startyr,endyr, SAVELOCATION = './../vectors
     call_glove('coha'+RUNLABEL, GLOVELOCATION, SAVELOCATION, FILELOCATION, '')
 
 def create_combined_years_glove_justglove(startyr, endyr, SAVELOCATION = './../vectors/', GLOVELOCATION = './GloVe-1.2/', append = ''):
-        print startyr
+        print(startyr)
         RUNLABEL_cooc = str(startyr) + '-'+str(endyr) + apppend
         RUNLABEL = RUNLABEL_cooc
 
@@ -81,7 +81,7 @@ for outlet in ['NYT', 'LATWP', 'REUFF', 'REUTE', 'WSJ']:#yrs_nyt:
     folder = '../../vectors/ldc95/{}/'.format(outlet)
     name = folder + 'vectors1994-1997.txt'.format(outlet)
     filename_output = name.replace('ldc95/{}/vectors1994-1997'.format(outlet),'normalized_clean/vectorsldc95_{}'.format(outlet))
-    print name,filename_output
+    print(name,filename_output)
     normalize(name, filename_output)
 
 
