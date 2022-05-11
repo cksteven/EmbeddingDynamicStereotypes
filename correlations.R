@@ -68,6 +68,13 @@ lag_df = lag_df[(lag_df$max_lag >= -5) & (lag_df$max_lag <= 5),]
 mean(lag_df$max_lag)
 mean(lag_df$max_acf)
 
+d3 = read.csv("IPUMS.csv") %>% janitor::clean_names()
+d3 = d3[d3$sex == 1,] %>% select(-sex, -x) %>% rename(occup = single_words)
+d3 = d3[d3$occup %in% filtered_occups,]
 
+occup_stats = d3 %>% pivot_wider(
+        id_cols = year,
+        names_from = occup,
+        values_from = percent)
 
-
+write.csv(occup_stats, "occup_stats.csv")
