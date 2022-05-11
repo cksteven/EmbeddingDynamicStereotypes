@@ -18,6 +18,7 @@ import copy
 import scipy
 from scipy.stats.stats import pearsonr
 from  more_itertools import unique_everseen
+import pickle
 sns.set(style="whitegrid") #TODO test this whitegrid, otherwise remove
 
 plotsfolder = 'plots/final/'
@@ -114,6 +115,8 @@ def plot_averagebias_over_time_consistentoccupations(row, label='', neutral_word
     if shift!=0: yrs= yrs[0:-shift]
     yrs_plot = [x + shift_yrs_plot_labels for x in yrs]
     print("DEBUG", arembed.shape, len(yrs))
+    pickle.dump(done_occups, open("occups_list.pkl", "wb"))
+    pickle.dump(arembed, open("occups_difs.pkl", "wb"))
     sns.tsplot(arembed, time=yrs_plot, estimator=np.nanmean, ax = ax1)
 
     if overlay_with_occ_percents:
