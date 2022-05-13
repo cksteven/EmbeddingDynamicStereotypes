@@ -36,6 +36,8 @@ occup_na = c("dancer", "dentist", "designer", "gardener", "musician", "porter", 
 occup_stats = occup_stats %>% select(!all_of(occup_na))
 occup_stats$occup_m = rowMeans(occup_stats[,2:39], na.rm = T)
 
+write.csv(occup_stats, "occup_stats.csv")
+
 d = d %>% select(!all_of(occup_na))
 d$occup_m = rowMeans(d2[,2:39])
 
@@ -90,7 +92,45 @@ lag_df = do.call(rbind, Map(data.frame, occup=filtered_occups, max_lag=max_lags,
 write.csv(lag_df, "lag_df.csv")
 
 
+max_lags_2 = c()
+max_acfs_2 = c()
 
+for (occup in filtered_occups){
+  res = ccf(d[,occup], occup_stats[,occup], lag = 10, plot=F)
+  res_df = do.call(rbind, Map(data.frame, lag=res$lag, acf=res$acf))
+  max_lag = res_df$lag[which.max(res_df$acf)]
+  max_acf = max(res_df$acf)
+  max_lags_2 = append(max_lags_2, max_lag)
+  max_acfs_2 = append(max_acfs_2, max_acf)
+}
+max_lags_2
+mean(max_lags_2)
 
+max_acfs_2
+mean(max_acfs_2)
 
+lag_df_2 = do.call(rbind, Map(data.frame, occup=filtered_occups, max_lag=max_lags_2, max_acf=max_acfs_2))
+write.csv(lag_df, "lag_df_2.csv")
+
+max_lags_3 = c()
+max_acfs_3 = c()
+
+for (occup in filtered_occups){
+  res = ccf(occup_stats[,occup], d$gss_m, lag = 10, plot=F)
+  res_df = do.call(rbind, Map(data.frame, lag=res$lag, acf=res$acf))
+  max_lag = res_df$lag[which.max(res_df$acf)]
+  max_acf = max(res_df$acf)
+  max_lags_3 = append(max_lags_3, max_lag)
+  max_acfs_3 = append(max_acfs_3, max_acf)
+}
+max_lags_3
+mean(max_lags_3)
+
+max_acfs_3
+mean(max_acfs_3)
+
+lag_df_3 = do.call(rbind, Map(data.frame, occup=filtered_occups, max_lag=max_lags_3, max_acf=max_acfs_3))
+write.csv(lag_df, "lag_df_3.csv")
+
+2/sqrt(18.5)
 
