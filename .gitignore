@@ -11,3 +11,4 @@ __pycache__*
 # run_results/*
 regressions/*
 vectors/
+*.dta

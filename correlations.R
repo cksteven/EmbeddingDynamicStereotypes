@@ -5,7 +5,7 @@ setwd("/Users/kesong/Documents/git-personal/EmbeddingDynamicStereotypes")
 # install.packages("tseries")
 library(tseries)
 
-d1 = read.csv("1972-2018atti&occup.csv")
+d1 = read.csv("attitude.csv")
 d2 = read.csv("occups_difs.csv", skip=1)
 
 d2 = d2 %>% rename(year = occup)
@@ -41,7 +41,6 @@ write.csv(occup_stats, "occup_stats.csv")
 d = d %>% select(!all_of(occup_na))
 d$occup_m = rowMeans(d2[,2:39])
 
-d$occup_m = rowMeans(d2[,2:47])
 d$gss_m = d1$attitude
 
 ### mean ling gender bias 
@@ -91,6 +90,12 @@ mean(max_acfs)
 lag_df = do.call(rbind, Map(data.frame, occup=filtered_occups, max_lag=max_lags, max_acf=max_acfs))
 write.csv(lag_df, "lag_df.csv")
 
+# ccf(d[,"teacher"], d$gss_m, lag = 10, plot=T)
+hist(max_lags, freq=T, breaks=seq(-10, 10, 1), 
+     xlab="Lag with the maximum correlation coefficient",
+     ylab="Frequency (%)",
+     main="Cross-lag correlate linguistic gender bias (X+t) \n v.s. gender role attitude (Y)")
+
 
 max_lags_2 = c()
 max_acfs_2 = c()
@@ -105,6 +110,11 @@ for (occup in filtered_occups){
 }
 max_lags_2
 mean(max_lags_2)
+
+hist(max_lags_2, freq=T, breaks=seq(-10, 10, 1), 
+     xlab="Lag with the maximum correlation coefficient",
+     ylab="Frequency (%)",
+     main="Cross-lag correlate linguistic gender bias (X+t) \n v.s. gender occupation difference (Y)")
 
 max_acfs_2
 mean(max_acfs_2)
@@ -126,6 +136,12 @@ for (occup in filtered_occups){
 max_lags_3
 mean(max_lags_3)
 
+hist(max_lags_3, freq=T, breaks=seq(-10, 10, 1), 
+     xlab="Lag with the maximum correlation coefficient",
+     ylab="Frequency (%)",
+     main="Cross-lag correlate gender occupation difference (X+t) \n v.s. gender role attitude (Y)")
+
+
 max_acfs_3
 mean(max_acfs_3)
 
@@ -134,3 +150,6 @@ write.csv(lag_df, "lag_df_3.csv")
 
 2/sqrt(18.5)
 
+cor(d$gss_m, d$occup_m)
+cor(d$gss_m, occup_stats$occup_m)
+cor(d$occup_m, occup_stats$occup_m)
