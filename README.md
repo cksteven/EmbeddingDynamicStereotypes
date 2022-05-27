@@ -1,3 +1,12 @@
+## Notes by Kesong Cao
+
+This repo is now archived. Work is cloned to another repo which is private right now.
+
+https://github.com/cksteven/lang-gender-bias
+
+## Original readme content
+
+
 This repository contains code and data associated with [Word embeddings quantify 100 years of gender and ethnic stereotypes.](https://doi.org/10.1073/pnas.1720347115) PDF available [here](http://gargnikhil.com/files/pdfs/GSJZ18_embedstereotypes.pdf).
 
 If you use the content in this repository, please cite:
